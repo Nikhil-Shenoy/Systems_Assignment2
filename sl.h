@@ -2,29 +2,40 @@
 #define SORTED_LIST_H
 #include <stdlib.h>
 
-struct SortedList
-{
-	Node *head;
-	SortedListIteratorPtr;
-	*CompareFuncT temp;
-};
-typedef struct SortedList* SortedListPtr;
-
 struct Node
 {
 	void *data;
-	Node *next;
-}
+	struct Node *next;
+};
+
+typedef struct Node Node;
+
+struct SortedList
+{
+	struct Node *head;
+	/*SortedListIteratorPtr;*/
+	int (*CompareFuncT) (void *, void *);
+};
+
+typedef struct SortedList SortedList;
+typedef struct SortedList* SortedListPtr;
 
 struct SortedListIterator
 {
 };
 typedef struct SortedListIterator* SortedListIteratorPtr;
 typedef int (*CompareFuncT)(void *, void *);
-/*asdfadsfasdfasdfadsfasdfasddsaadsfasdfasdfasdfasdfasdfasdfasdfasd*/
 
-SortedListPtr SLCreate(CompareFuncT cf);
-void SLDestroy(SortedListPtr list);
+/*----------------------------------------------------------------------*/
+
+typedef Node* NodePtr;
+
+NodePtr NodeCreate(void *newObj);
+void NodeDestroy(NodePtr myNode);
+
+
+SortedListPtr SLCreate(CompareFuncT cf); // done
+void SLDestroy(SortedListPtr list); // done
 int SLInsert(SortedListPtr list, void *newObj);
 int SLRemove(SortedListPtr list, void *newObj);
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list);
