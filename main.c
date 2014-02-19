@@ -30,17 +30,70 @@ int compareStrings(void *p1, void *p2)
 	return strcmp(s1, s2);
 }
 
+void printInts(SortedListPtr list)
+{
+	Node *cur = list->head;
+
+	while(cur != NULL)
+	{
+		void *temp = cur->data;
+		int toPrint = *((int*)temp);
+
+		printf("%u\n",toPrint);
+	}
+}
+
+void printDoubles(SortedListPtr list)
+{
+	Node *cur = list->head;
+
+	while(cur != NULL)
+	{
+		void *temp = cur->data;
+		double toPrint = *((double*)temp);
+
+		printf("%f\n",toPrint);
+	}
+}
+
+void printStrings(SortedListPtr list)
+{
+	Node *cur = list->head;
+
+	while(cur != NULL)
+	{
+		char *temp = cur->data;
+		printf("%s\n",temp);
+	}
+}
+
 int main()
 {
 	SortedListPtr myList = SLCreate(&compareInts);
 
-	void *one = 1;
-	void *two = 2;
-	void *three = 3;
+	int a,b,c,d,e,f;
+	a = 0;
+	b = 2;
+	c = 4;
+	d = 6;
+	e = 8;
+	f = 10;
 
-	SLInsert(myList,one);
-	SLInsert(myList,two);
-	SLInsert(myList,three);
+	void *A = &a;
+	void *B = &b;
+	void *C = &c;
+	void *D = &d;
+	void *E = &e;
+	void *F = &f;
+
+	int holder;
+
+	holder = SLInsert(myList,A);
+	holder = SLInsert(myList,B);
+	holder = SLInsert(myList,C);
+	holder = SLInsert(myList,F);
+	holder = SLInsert(myList,D);
+	holder = SLInsert(myList,E);
 
 	SLDestroy(myList);
 }
