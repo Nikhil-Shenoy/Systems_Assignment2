@@ -12,7 +12,7 @@ typedef struct Node Node;
 
 struct SortedList
 {
-	struct Node *head;
+	Node *head;
 	/*SortedListIteratorPtr;*/
 	int (*CompareFuncT) (void *, void *);
 };
@@ -22,6 +22,7 @@ typedef struct SortedList* SortedListPtr;
 
 struct SortedListIterator
 {
+    Node *head;
 };
 typedef struct SortedListIterator* SortedListIteratorPtr;
 typedef int (*CompareFuncT)(void *, void *);

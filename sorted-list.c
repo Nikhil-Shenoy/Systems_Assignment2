@@ -89,7 +89,7 @@ int SLInsert(SortedListPtr list, void *newObj)
 		if(list->CompareFuncT(newObj,cur->data) > 0)
 		{
 
-			printf("The if statement\n");
+			
 			NodePtr newNode = NodeCreate(newObj);
 			
 			newNode->next = cur;
@@ -107,11 +107,9 @@ int SLInsert(SortedListPtr list, void *newObj)
 
 	
 			NodePtr newNode = NodeCreate(newObj);
-	
-
 			/*Insert*/
 			prev->next = newNode;
-			printf("Where is it?\n");
+			
 			newNode->next = cur;
 		
 			printf("Adding node to non-empty list.\n");
@@ -151,4 +149,38 @@ cur = cur->next;
    }
    
 }
-	
+
+
+SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
+    Node * start = list->head;
+    
+    SortedListIteratorPtr  init = (SortedListIteratorPtr ) malloc(sizeof(SortedListIteratorPtr));
+    init->fir = start;
+    return init;
+    
+}
+
+
+void SLDestroyIterator(SortedListIteratorPtr iter){
+    
+    free(iter);
+    return;}
+
+
+
+void *SLNextItem(SortedListIteratorPtr iter){
+    if (iter->fir==NULL) {
+        return NULL;
+    }
+    void *temp = iter->fir->data;
+    double toPrint = *((double*)temp);
+    printf("%f\n", toPrint);
+    iter->fir = iter->fir->next;
+    return temp;
+
+}
+
+
+
+
+
