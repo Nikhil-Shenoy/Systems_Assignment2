@@ -38,6 +38,9 @@ SortedListPtr SLCreate(CompareFuncT cf); // done
 void SLDestroy(SortedListPtr list); // done
 int SLInsert(SortedListPtr list, void *newObj); //done
 int SLRemove(SortedListPtr list, void *newObj); //done
+
+
+
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list);
 void SLDestroyIterator(SortedListIteratorPtr iter);
 void *SLNextItem(SortedListIteratorPtr iter);

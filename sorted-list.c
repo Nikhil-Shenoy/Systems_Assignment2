@@ -71,14 +71,12 @@ int SLInsert(SortedListPtr list, void *newObj)
 		printf("HELLO\n");
 
 		printf("Adding node to empty list.\n");
-	
-
-/*		return 1;*/
+		return 1;
 	}
 	else if(list->head != NULL)
 	{
 
-		printf("HELLO");
+		printf("HELLO\n");
 		NodePtr cur = list->head;
 		NodePtr prev = NULL;
 
@@ -86,26 +84,46 @@ int SLInsert(SortedListPtr list, void *newObj)
 		/*Move the cur and prev pointers until cur points to the node where the newObj
 			should be inserted and prev points to the node before that point. */
 
-		while(list->CompareFuncT(cur->data,newObj) < 0) 
+
+
+		if(list->CompareFuncT(newObj,cur->data) > 0)
 		{
-			prev = cur;
-			cur = cur->next;
+
+			printf("The if statement\n");
+			NodePtr newNode = NodeCreate(newObj);
+			
+			newNode->next = cur;
+			list->head = newNode;
+			
+			return 1;
 		}
-	
-		NodePtr newNode = NodeCreate(newObj);
+		else
+		{
+			while((cur != NULL) && (list->CompareFuncT(newObj,cur->data)) < 0)
+			{
+				prev = cur;
+				cur = cur->next;
+			}
 
-		/*Insert*/
-		prev->next = newNode;
-		newNode->next = cur;
 	
-		printf("Adding node to non-empty list.\n");
+			NodePtr newNode = NodeCreate(newObj);
+	
+
+			/*Insert*/
+			prev->next = newNode;
+			printf("Where is it?\n");
+			newNode->next = cur;
 		
-		return 1;
+			printf("Adding node to non-empty list.\n");
+			
+			return 1;
+		}
 	}
-
-
+	else
+	{
 		printf("Hello again\n");
 		return 0;
+	}
 }
 
 

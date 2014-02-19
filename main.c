@@ -40,6 +40,8 @@ void printInts(SortedListPtr list)
 		int toPrint = *((int*)temp);
 
 		printf("%u\n",toPrint);
+
+		cur = cur->next;
 	}
 }
 
@@ -53,6 +55,8 @@ void printDoubles(SortedListPtr list)
 		double toPrint = *((double*)temp);
 
 		printf("%f\n",toPrint);
+
+		cur = cur->next;
 	}
 }
 
@@ -71,13 +75,13 @@ int main()
 {
 	SortedListPtr myList = SLCreate(&compareInts);
 
-	int a,b,c,d,e,f;
-	a = 0;
-	b = 2;
-	c = 4;
-	d = 6;
-	e = 8;
-	f = 10;
+	double a,b,c,d,e,f;
+	a = 0.0;
+	b = 0.2;
+	c = 0.4;
+	d = 0.6;
+	e = 0.8;
+	f = 0.10;
 
 	void *A = &a;
 	void *B = &b;
@@ -86,7 +90,7 @@ int main()
 	void *E = &e;
 	void *F = &f;
 
-	int holder;
+	double holder;
 
 	holder = SLInsert(myList,A);
 	holder = SLInsert(myList,B);
@@ -94,6 +98,8 @@ int main()
 	holder = SLInsert(myList,F);
 	holder = SLInsert(myList,D);
 	holder = SLInsert(myList,E);
+
+	printDoubles(myList);
 
 	SLDestroy(myList);
 }
