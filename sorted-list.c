@@ -110,34 +110,27 @@ int SLInsert(SortedListPtr list, void *newObj)
 
 
 
-int SLRemove(SortedListPtr list, void *newObj)
+
+int SLRemove(SortedListPtr list, void *newObj){
+   if(list->head==NULL){
+       return 0;
+   }
+   else{
+   
+   NodePtr cur = list->head;
+   NodePtr prev = NULL;
+   
+   while(list->CompareFuncT(cur->data,newObj) != 0)
 {
-
-	int (*current) (void *, void *) = list->CompareFuncT;    
- 
-	Node *prev = NULL; 
-        Node *cur = list->head;
-        int temp = current(newObj, list->head->data); //This takes care of the first node in the linked list
-        while(temp!=0 && cur!=NULL)
-	{
-		prev = cur;
-		cur = cur->next;
-		int temp = current(newObj, list->head->data);
-	}
-
-	if (cur==NULL) // not found
-	{
-		printf("The value was not found. Removal failed.\n");
-	        return 0;
-	}
-	else
-	{
-		prev->next = cur->next;
-		cur->next = NULL;
-
-		NodeDestroy(cur); // found and removed
-		printf("The value was successfully found and removed.\n");
-		return 1;
-	}
+prev = cur;
+cur = cur->next;
+}
+   
+       prev->next = cur->next;
+       cur->next = NULL;
+       NodeDestroy(cur);
+   return 1;
+   }
+   
 }
 	
