@@ -173,8 +173,7 @@ void *SLNextItem(SortedListIteratorPtr iter){
         return NULL;
     }
     void *temp = iter->fir->data;
-    double toPrint = *((double*)temp);
-    printf("%f\n", toPrint);
+  
     iter->fir = iter->fir->next;
     return temp;
 
