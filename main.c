@@ -69,38 +69,84 @@ void printStrings(SortedListPtr list)
 	{
 		char *temp = cur->data;
 		printf("%s\n",temp);
+
+		cur = cur->next;
 	}
 }
 
 int main()
 {
-	SortedListPtr myList = SLCreate(&compareDoubles);
+	SortedListPtr myList = SLCreate(&compareStrings);
 
-	double a,b,c,d,e,f;
-	a = 0.0;
-	b = 0.2;
-	c = 0.4;
-	d = 0.6;
-	e = 0.8;
-	f = 0.10;
+	char *a = "b";
+	char *b = "f";
+	char *c = "d";
+	char *d = "z";
 
-	void *A = &a;
-	void *B = &b;
-	void *C = &c;
-	void *D = &d;
-	void *E = &e;
-	void *F = &f;
-
-	double holder;
+/*	*a = "f";
+	*b = "d";
+	*c = "b";
+*/	
+	void *A = a;
+	void *B = b;
+	void *C = c;
+	void *D = d;
+	int holder;
 
 	holder = SLInsert(myList,A);
 	holder = SLInsert(myList,B);
 	holder = SLInsert(myList,C);
-	holder = SLInsert(myList,F);
-	holder = SLInsert(myList,D);
-	holder = SLInsert(myList,E);
+	printStrings(myList);
 
-	printDoubles(myList);
+
+	SortedListIteratorPtr iter = SLCreateIterator(myList);
+
+	holder = SLRemove(myList,"d");
+
+	char * timp = SLNextItem(iter);
+	printf("Next item is: %s\n",timp);
+
+	timp = SLNextItem(iter);
+	printf("Next item is: %s\n",timp);
+	
+
+
+	timp = SLNextItem(iter);
+	printf("Next item is: %s\n",timp);
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	SLDestroy(myList);
 }

@@ -4,6 +4,7 @@
 
 struct Node
 {
+	int refcount;
 	void *data;
 	struct Node *next;
 };

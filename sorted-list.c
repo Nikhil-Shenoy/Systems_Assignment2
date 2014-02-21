@@ -12,7 +12,7 @@ SortedListPtr SLCreate(CompareFuncT cf)
 /*    newPtr->SortedListIteratorPtr = NULL;*/
 
 	printf("Finished making the sorted list.\n");
-
+ 
 	return newPtr;
 }
         
@@ -39,7 +39,54 @@ NodePtr NodeCreate(void *newObj)
 	NodePtr newPtr = (NodePtr) malloc(sizeof(Node));
 
 	newPtr->data = newObj;
-	newPtr->next = NULL;
+	newPtr->next = NULL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;
 
 	printf("Finished making the node.\n");
 
@@ -66,6 +113,7 @@ int SLInsert(SortedListPtr list, void *newObj)
 	{
 		NodePtr newNode = NodeCreate(newObj);
 		list->head = newNode;
+		list->head->refcount = 1;
 
 		printf("The new object is: \n");
 		printf("HELLO\n");
@@ -93,7 +141,9 @@ int SLInsert(SortedListPtr list, void *newObj)
 			NodePtr newNode = NodeCreate(newObj);
 			
 			newNode->next = cur;
-			list->head = newNode;
+			newNode->refcount = 1;
+			list->head = newNode;	
+
 			
 			return 1;
 		}
@@ -109,6 +159,7 @@ int SLInsert(SortedListPtr list, void *newObj)
 			NodePtr newNode = NodeCreate(newObj);
 			/*Insert*/
 			prev->next = newNode;
+			newNode->refcount = 1;
 			
 			newNode->next = cur;
 		
@@ -141,11 +192,19 @@ int SLRemove(SortedListPtr list, void *newObj){
 prev = cur;
 cur = cur->next;
 }
-   
+
+  if(cur->refcount==1) {
        prev->next = cur->next;
        cur->next = NULL;
        NodeDestroy(cur);
-   return 1;
+	return 1;}
+
+else if(cur->refcount>1){
+prev->next = cur->next;
+   return 1;}
+
+else{
+return 0;}
    }
    
 }
@@ -153,8 +212,9 @@ cur = cur->next;
 
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list)
 {
-    SortedListIteratorPtr  init = (SortedListIteratorPtr ) malloc(sizeof(SortedListIterator));
+    SortedListIteratorPtr  init = (SortedListIteratorPtr ) malloc(sizeof(SortedListIteratorPtr));
     init->current = list->head;
+	init->current->refcount = init->current->refcount + 1;
     return init;
 }
 
@@ -171,11 +231,69 @@ void *SLNextItem(SortedListIteratorPtr iter){
         return NULL;
     }
     void *temp = iter->current->data;
-  
+ 
+	iter->current->refcount -= 1;
+
+if(iter->current->refcount==0){
+	NodePtr tomp = iter->current;
+	void * val = temp;
+	iter->current = iter->current->next;
+	NodeDestroy(tomp);
+	return val;
+} 
+
+else{
     iter->current = iter->current->next;
-    return temp;
+    return temp;}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
