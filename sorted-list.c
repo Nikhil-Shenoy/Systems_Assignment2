@@ -39,54 +39,8 @@ NodePtr NodeCreate(void *newObj)
 	NodePtr newPtr = (NodePtr) malloc(sizeof(Node));
 
 	newPtr->data = newObj;
-	newPtr->next = NULL
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-;
+	newPtr->next = NULL;
+	newPtr->refcount = 0;
 
 	printf("Finished making the node.\n");
 
@@ -178,73 +132,101 @@ int SLInsert(SortedListPtr list, void *newObj)
 
 
 
-int SLRemove(SortedListPtr list, void *newObj){
-   if(list->head==NULL){
-       return 0;
-   }
-   else{
-   
-   NodePtr cur = list->head;
-   NodePtr prev = NULL;
-   
-   while(list->CompareFuncT(cur->data,newObj) != 0)
+int SLRemove(SortedListPtr list, void *newObj)
 {
-prev = cur;
-cur = cur->next;
-}
+	if(list->head==NULL)
+	{
+		return 0; // remove failed
+	}
+	else if(list->head != NULL)
+	{
+   
+		NodePtr cur = list->head;
+		NodePtr prev = NULL;
+   
+		while(list->CompareFuncT(cur->data,newObj) != 0)
+		{
+			prev = cur;
+			cur = cur->next;
+		}
 
-  if(cur->refcount==1) {
-       prev->next = cur->next;
-       cur->next = NULL;
-       NodeDestroy(cur);
-	return 1;}
-
-else if(cur->refcount>1){
-prev->next = cur->next;
-   return 1;}
-
-else{
-return 0;}
-   }
+		if(cur->refcount==1)
+		{
+			if(cur == list->head) // special case of deleting the head of the list
+			{
+				list->head = cur->next; // move the head pointer forward
+				cur->next = NULL;
+				NodeDestroy(cur);
+				return 1;
+			}
+			else
+			{
+				prev->next = cur->next;
+				cur->next = NULL;
+				NodeDestroy(cur);
+				return 1;
+			}
+		}
+		else if(cur->refcount>1)
+		{
+			prev->next = cur->next;
+			return 1;
+		}
+	}
+	else
+	{
+		return 0;
+	}
+   
    
 }
 
 
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list)
 {
-    SortedListIteratorPtr  init = (SortedListIteratorPtr ) malloc(sizeof(SortedListIteratorPtr));
-    init->current = list->head;
-	init->current->refcount = init->current->refcount + 1;
-    return init;
+	SortedListIteratorPtr  init = (SortedListIteratorPtr ) malloc(sizeof(struct SortedListIterator));
+	init->current = list->head;
+	init->current->refcount += 1;
+	
+	return init;
 }
 
 
-void SLDestroyIterator(SortedListIteratorPtr iter){
-    iter->current = NULL; 
-    free(iter);
-    return;}
+void SLDestroyIterator(SortedListIteratorPtr iter)
+{
+	iter->current->refcount -= 1;
+	iter->current = NULL; 
+	free(iter);
+
+	return;
+}
 
 
 
-void *SLNextItem(SortedListIteratorPtr iter){
-    if (iter->current==NULL) {
-        return NULL;
-    }
-    void *temp = iter->current->data;
+void *SLNextItem(SortedListIteratorPtr iter)
+{
+	if (iter->current==NULL)
+    		return NULL;
+    
+	void *temp = iter->current->data;
  
 	iter->current->refcount -= 1;
 
-if(iter->current->refcount==0){
-	NodePtr tomp = iter->current;
-	void * val = temp;
-	iter->current = iter->current->next;
-	NodeDestroy(tomp);
-	return val;
-} 
+	if(iter->current->refcount==0)
+	{
+		NodePtr tomp = iter->current;
 
-else{
-    iter->current = iter->current->next;
-    return temp;}
+		iter->current = iter->current->next;
+		tomp->next = NULL;
+		NodeDestroy(tomp);
+		return temp;
+	} 
+
+	else
+	{
+		iter->current = iter->current->next; // Move to the next node
+		return temp;
+	}
 
 }
 
