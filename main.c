@@ -74,7 +74,7 @@ void printStrings(SortedListPtr list)
 
 int main()
 {
-	SortedListPtr myList = SLCreate(&compareInts);
+	SortedListPtr myList = SLCreate(&compareDoubles);
 
 	double a,b,c,d,e,f;
 	a = 0.0;

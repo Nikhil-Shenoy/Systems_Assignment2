@@ -151,30 +151,28 @@ cur = cur->next;
 }
 
 
-SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
-    Node * start = list->head;
-    
-    SortedListIteratorPtr  init = (SortedListIteratorPtr ) malloc(sizeof(SortedListIteratorPtr));
-    init->fir = start;
+SortedListIteratorPtr SLCreateIterator(SortedListPtr list)
+{
+    SortedListIteratorPtr  init = (SortedListIteratorPtr ) malloc(sizeof(SortedListIterator));
+    init->current = list->head;
     return init;
-    
 }
 
 
 void SLDestroyIterator(SortedListIteratorPtr iter){
-    
+    iter->current = NULL; 
     free(iter);
     return;}
 
 
 
 void *SLNextItem(SortedListIteratorPtr iter){
-    if (iter->fir==NULL) {
+    if (iter->current==NULL) {
         return NULL;
     }
-    void *temp = iter->fir->data;
+    void *temp = iter->current->data;
   
-    iter->fir = iter->fir->next;
+    iter->current = iter->current->next;
     return temp;
 
 }
