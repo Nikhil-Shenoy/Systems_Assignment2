@@ -1,0 +1,8 @@
+Abhishek Saha
+Nikhil Shenoy 
+Testcases for Assignment 2
+
+Input: A sorted list is created but no entries are added. An iterator is created and is then pointed towards the next node in the list by way of the SLNextItem function.
+
+Expected output: NULL and NULL
+
