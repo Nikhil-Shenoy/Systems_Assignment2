@@ -106,111 +106,34 @@ void destroyBasicTypeNoAlloc(void *p)
 
 int main()
 {
-	int success;
+	char *f = "f";
+	char *d = "d";
+	char *b = "b";
 
-	SortedListPtr myList = SLCreate(compareInts); // create a list for integers
-	
-
-	int a,b,c,d;
-	a = 1;
-	b = 2;
-	c = 3;
-	
-
-	void *A = &a;
-	void *B = &b;
-	void *C = &c;
-	
-
-	//Add elements to the list
-	success = SLInsert(myList,C); // Nodes are created and added to the list
-	success = SLInsert(myList,B);	
-	success = SLInsert(myList,A);
-
-	SortedListIteratorPtr myIter = SLCreateIterator(myList); // create an iterator that points to the head of the list
-/*	getRefCounts(myIter);*/
-	
-	printInts(myIter); // print the list
-
-
-//	getRefCounts(myIter);
-	
-
-
-
-	SLDestroy(myList);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*	SortedListPtr myList = SLCreate(&compareStrings);
-
-	char *a = "b";
-	char *b = "f";
-	char *c = "d";
-	char *d = "z";
-
-	*a = "f";
-	*b = "d";
-	*c = "b";
-	
-	void *A = a;
-	void *B = b;
-	void *C = c;
+	void *F = f;
 	void *D = d;
-	int holder;
+	void *B = b;
 
-	holder = SLInsert(myList,A);
-	holder = SLInsert(myList,B);
-	holder = SLInsert(myList,C);
-	printStrings(myList);
+	SortedListPtr myList = SLCreate(compareStrings);
 
+	int success;
+	success = SLInsert(myList,F);
+	success = SLInsert(myList,D);
+	success = SLInsert(myList,B);
 
-	SortedListIteratorPtr iter = SLCreateIterator(myList);
+	SortedListIteratorPtr myIter = SLCreateIterator(myList);
+	void *holder = SLNextItem(myIter);
+	SLRemove(myList,D);
+	printStrings(myIter);
 
-	holder = SLRemove(myList,"d");
-
-	char * timp = SLNextItem(iter);
-	printf("Next item is: %s\n",timp);
-
-	timp = SLNextItem(iter);
-	printf("Next item is: %s\n",timp);
-	
-
-
-	timp = SLNextItem(iter);
-	printf("Next item is: %s\n",timp);
-	
+	SLDestroyIterator(iter);
 	SLDestroy(myList);
+////////////////////////////////////////
+//
+	
+	
+	
 
-*/
+
+
 }
