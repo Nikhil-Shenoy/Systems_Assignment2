@@ -53,6 +53,20 @@ z //No duplicates
 x
 s
 
+Input: "z" "s" "x" are inserted into a sorted list. SLNextItem is called twice. "t" is inserted into the sorted list. SLNextItem is called for all the values in the list until it hits null.
+Expected Output:
+z
+x
+s
+NULL
+
+Input: "z" "s" "x" are inserted into a sorted list. SLNextItem is called thrice. "a" is inserted into the sorted list. SLNextItem is called for all the values in the list until it hits null.
+Expected Output:
+z
+x
+s
+NULL
+
 Input: "z" "s" "x" are inserted into a sorted list. SLNextItem is called once. "t" is inserted into the sorted list. SLNextItem is called for all the values in the list until it hits null.
 Expected Output:
 z
@@ -72,6 +86,35 @@ Expected Output:
 z
 x 
 s
+NULL
+
+Input: ["f","d","b"] is the list, and an iterator is created.  Then "z" is inserted (in the beginning).  SLNextItem calls until it hits the end of the list. 
+Expected Output:
+f
+d
+b
+NULL
+
+Input: ["f","d","b"] is the list.  Then "z" is inserted (in the beginning).  An iterator is created.  SLNextItem calls until it hits the end of the list. 
+Expected Output:
+z
+f
+d
+b
+NULL
+
+Input: ["d","c","b","a"] is the list, and two iterators point to "c" and "b", respectively.  "b" and "c" are removed with SLRemove. SLNextItem is called on both iterators until they hit the end of the list; each value is printed out.
+
+Expected Output: 
+a (For first iterator)
+NULL (For first iterator)
+a (For second iterator)
+NULL (For second iterator)
+
+["f","d","b"] is the list, and an iterator is created.  SLNextItem is called once, so the iterator points to "d". "d" is then removed with SLRemove. SLNextItem is called until it hits the end of the list.
+Expected Output: 
+f
+b
 NULL
 
 
