@@ -153,7 +153,7 @@ int SLRemove(SortedListPtr list, void *newObj)
 			cur = cur->next;
 		}
 
-		if(cur->refcount==1)
+		if(cur->refcount==1)//If the next pointer is the only reference, wen can delete the node
 		{
 			if(cur == list->head) // special case of deleting the head of the list
 			{
@@ -163,7 +163,7 @@ int SLRemove(SortedListPtr list, void *newObj)
 				printf("Leaving SLRemove\n");
 				return 1;
 			}
-			else
+			else    //Usual way to remove 
 			{
 				prev->next = cur->next;
 				cur->next = NULL;
@@ -172,8 +172,9 @@ int SLRemove(SortedListPtr list, void *newObj)
 				return 1;
 			}
 		}
-		else if(cur->refcount>1)
+		else if(cur->refcount>1) //If thre are other iterators pointing to the node
 		{
+            cur->refcount = cur->refcount-1; //Shows that cur is losing its next pointer from prev
 			prev->next = cur->next;
 			printf("Leaving SLRemove\n");
 			return 1;
@@ -189,15 +190,15 @@ int SLRemove(SortedListPtr list, void *newObj)
 }
 
 
-SortedListIteratorPtr SLCreateIterator(SortedListPtr list)
+SortedListIteratorPtr SLCreateIterator(SortedListPtr list) //Creates iterator
 {
 	printf("Enter SLCreateIterator\n");
 
 	SortedListIteratorPtr  init = (SortedListIteratorPtr) malloc(sizeof(SortedListIterator));
 
-	init->current = list->head;
+	init->current = list->head; //Creates iterator pointing at the start of the list
 printf("Hello");
-	init->current->refcount += 1;
+	init->current->refcount += 1;   //Increases reference count of the node
 
 	printf("Leaving SLCreateIterator\n");
 	
@@ -208,7 +209,7 @@ printf("Hello");
 void SLDestroyIterator(SortedListIteratorPtr iter)
 {
 	printf("Enter SLDestroyIterator\n");
-	iter->current->refcount -= 1;
+	iter->current->refcount -= 1;   //Subtracts one from the reference count
 	iter->current = NULL; 
 	free(iter);
 	printf("Leaving SLDestroyIterator\n");
@@ -220,14 +221,14 @@ void SLDestroyIterator(SortedListIteratorPtr iter)
 void *SLNextItem(SortedListIteratorPtr iter)
 {
 	printf("Enter SLNextItem\n");
-	if (iter->current==NULL)
+	if (iter->current==NULL)    //End of list
     		return NULL;
     
-	void *temp = iter->current->data;
+	void *temp = iter->current->data;//Data of the current node
  
-	iter->current->refcount -= 1;
+	iter->current->refcount -= 1;   //Iterator shall move forward one space, so the ref-count goes down by one
 
-	if(iter->current->refcount==0)
+	if(iter->current->refcount==0)  //If there are no references(iterator or nexts), then you should delete the node 
 	{
 		NodePtr tomp = iter->current;
 
@@ -238,7 +239,7 @@ void *SLNextItem(SortedListIteratorPtr iter)
 		return temp;
 	} 
 
-	else
+	else    //If the node still has other references
 	{
 		iter->current = iter->current->next; // Move to the next node
 		printf("Leaving SLNextItem\n");
