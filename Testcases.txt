@@ -6,3 +6,13 @@ Input: A sorted list is created but no entries are added. An iterator is created
 
 Expected output: NULL and NULL
 
+Input: A sorted list is created and three entries are added to the list. An iterator is created and is then pointed towards the next node in the list and then the one after (SLNextItem is called twice). Another, different iterator is created and is pointed to the next item in the list. Each value obtained by the SLNextItem method called in the program is printed. 
+
+The input values are "7", "25", "2"
+
+Expected Output:
+25 (For first iterator)
+7(For first iterator)
+25 (For second Iterator)
+
+
