@@ -126,14 +126,50 @@ int main()
 	SLRemove(myList,D);
 	printStrings(myIter);
 
-	SLDestroyIterator(iter);
+	SLDestroyIterator(myIter);
 	SLDestroy(myList);
 ////////////////////////////////////////
 //
-	
-	
-	
+/*
+SortedListPtr myList2 = SLCreate(compareInts); // create a list for integers
 
+
+        int w,x,y,z;
+        w = 1;
+        x = 2;
+        y = 3;
+
+
+        void *X = &x;
+        void *Y = &y;
+        void *W = &w;
+
+
+        //Add elements to the list
+                success = SLInsert(myList2,W); // Nodes are created and added to the list
+                        success = SLInsert(myList2,X);
+                                success = SLInsert(myList2,Y);
+        
+                                       SortedListIteratorPtr myIter2 = SLCreateIterator(myList2);
+                                               int temp = *((int*)SLNextItem(myIter2));
+                                                       printf("%d\n", temp);
+       
+                                                          temp = *((int*)SLNextItem(myIter2));
+                                                                   printf("%d\n", temp);
+       
+                                                                        SRemove(myList2, F);
+        
+                                                                          SortedListIteratorPtr SecondIter = SLCreateIterator(myList2);
+       
+                                                                                temp = *((int*)SLNextItem(SecondIter));     //No items in the list
+                                                                                        printf("%d\n", temp);
+
+                                                                                            temp = *((int*)SLNextItem(SecondIter));     //No items in the list
+                                                                                                    printf("%d\n", temp);
+                                                                                                    	
+	
+	
+*/
 
 
 }
