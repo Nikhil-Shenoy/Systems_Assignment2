@@ -27,22 +27,9 @@ int compareStrings(void *p1, void *p2)
 {
 	char *s1 = p1;
 	char *s2 = p2;
-
 	return strcmp(s1, s2);
 }
 
-void printInts(SortedListIteratorPtr iter)
-{
-	NodePtr location = iter->current;
-
-	while(iter->current != NULL)
-	{
-		int temp = *((int*)SLNextItem(iter));
-		printf("%u\n",temp);
-	}
-
-	iter->current = location; // move iterator back to where it was 
-}
 
 void printDoubles(SortedListIteratorPtr iter)
 {
@@ -70,12 +57,44 @@ void printStrings(SortedListIteratorPtr iter)
 	iter->current = location; // move iterator back to where it was 
 }
 
+void getRefCounts(SortedListIteratorPtr iter)
+{
+	NodePtr cur = iter->current;	
+	
+	while(cur != NULL)
+	{
+		int count = cur->refcount;
+		printf("RefCount is: %u\n",count);
+
+		cur = cur->next;
+	}
+
+
+
+	return;
+}	
+
+void printInts(SortedListIteratorPtr iter)
+{
+	NodePtr location = iter->current;
+
+	while(iter->current != NULL)
+	{
+		getRefCounts(iter);
+		int temp = *((int*)SLNextItem(iter));
+		printf("The value is: %u\n",temp);
+	}
+
+	iter->current = location; // move iterator back to where it was 
+}
+
+
 int main()
 {
 	int success;
 
 	SortedListPtr myList = SLCreate(compareInts); // create a list for integers
-	SortedListIteratorPtr myIter = SLCreateIterator(myList); // create an iterator that points to the head of the list
+	
 
 	int a,b,c,d;
 	a = 1;
@@ -89,21 +108,24 @@ int main()
 	void *D = &d;
 
 	//Add elements to the list
-	success = SLInsert(myList,C);
+	success = SLInsert(myList,C); // Nodes are created and added to the list
 	success = SLInsert(myList,B);	
-	success = SLInsert(myList,C);
+	success = SLInsert(myList,C); // duplicates are not added to the list
 	success = SLInsert(myList,D);	
 	success = SLInsert(myList,A);
 
-	printInts(myIter);
+	SortedListIteratorPtr myIter = SLCreateIterator(myList); // create an iterator that points to the head of the list
+/*	getRefCounts(myIter);*/
+	
+	printInts(myIter); // print the list
+
+
+//	getRefCounts(myIter);
+	
 
 
 
-
-
-
-
-
+	SLDestroy(myList);
 
 
 
