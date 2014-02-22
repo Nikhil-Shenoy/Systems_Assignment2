@@ -53,4 +53,25 @@ z //No duplicates
 x
 s
 
+Input: "z" "s" "x" are inserted into a sorted list. SLNextItem is called once. "t" is inserted into the sorted list. SLNextItem is called for all the values in the list until it hits null.
+Expected Output:
+z
+x
+t
+s
+NULL
+
+Input: "z" "s" "x" are inserted into a sorted list. SLNextItem is called once. "s" is removed from the list. SLNextItem is called for all the values in the list until it hits null.
+Expected Output:
+z
+x 
+NULL
+
+Input: "z" "s" "x" are inserted into a sorted list. SLNextItem is called once. "x" is removed from the list. SLNextItem is called for all the values in the list until it hits null.
+Expected Output:
+z
+x 
+s
+NULL
+
 
