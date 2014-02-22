@@ -68,17 +68,15 @@ int SLInsert(SortedListPtr list, void *newObj)
 		NodePtr newNode = NodeCreate(newObj);
 		list->head = newNode;
 		list->head->refcount = 1;
+		printf("Leaving SLInsert\n");
+			
 
-		printf("The new object is: \n");
-		printf("HELLO\n");
-
-		printf("Adding node to empty list.\n");
 		return 1;
 	}
 	else if(list->head != NULL)
 	{
 
-		printf("HELLO\n");
+
 		NodePtr cur = list->head;
 		NodePtr prev = NULL;
 
@@ -97,6 +95,8 @@ int SLInsert(SortedListPtr list, void *newObj)
 			newNode->next = cur;
 			newNode->refcount = 1;
 			list->head = newNode;	
+			printf("Leaving SLInsert\n");
+			
 
 			
 			return 1;
@@ -117,7 +117,7 @@ int SLInsert(SortedListPtr list, void *newObj)
 			
 			newNode->next = cur;
 		
-			printf("Adding node to non-empty list.\n");
+			printf("Leaving SLInsert\n");
 			
 			return 1;
 		}
@@ -134,8 +134,11 @@ int SLInsert(SortedListPtr list, void *newObj)
 
 int SLRemove(SortedListPtr list, void *newObj)
 {
+	printf("Entering SLRemove\n");
+
 	if(list->head==NULL)
 	{
+		printf("Leaving SLRemove\n");
 		return 0; // remove failed
 	}
 	else if(list->head != NULL)
@@ -157,6 +160,7 @@ int SLRemove(SortedListPtr list, void *newObj)
 				list->head = cur->next; // move the head pointer forward
 				cur->next = NULL;
 				NodeDestroy(cur);
+				printf("Leaving SLRemove\n");
 				return 1;
 			}
 			else
@@ -164,17 +168,20 @@ int SLRemove(SortedListPtr list, void *newObj)
 				prev->next = cur->next;
 				cur->next = NULL;
 				NodeDestroy(cur);
+				printf("Leaving SLRemove\n");
 				return 1;
 			}
 		}
 		else if(cur->refcount>1)
 		{
 			prev->next = cur->next;
+			printf("Leaving SLRemove\n");
 			return 1;
 		}
 	}
 	else
 	{
+		printf("Leaving SLRemove\n");
 		return 0;
 	}
    
@@ -184,9 +191,15 @@ int SLRemove(SortedListPtr list, void *newObj)
 
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list)
 {
-	SortedListIteratorPtr  init = (SortedListIteratorPtr ) malloc(sizeof(struct SortedListIterator));
+	printf("Enter SLCreateIterator\n");
+
+	SortedListIteratorPtr  init = (SortedListIteratorPtr) malloc(sizeof(SortedListIterator));
+
 	init->current = list->head;
+printf("Hello");
 	init->current->refcount += 1;
+
+	printf("Leaving SLCreateIterator\n");
 	
 	return init;
 }
@@ -194,10 +207,11 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list)
 
 void SLDestroyIterator(SortedListIteratorPtr iter)
 {
+	printf("Enter SLDestroyIterator\n");
 	iter->current->refcount -= 1;
 	iter->current = NULL; 
 	free(iter);
-
+	printf("Leaving SLDestroyIterator\n");
 	return;
 }
 
@@ -205,6 +219,7 @@ void SLDestroyIterator(SortedListIteratorPtr iter)
 
 void *SLNextItem(SortedListIteratorPtr iter)
 {
+	printf("Enter SLNextItem\n");
 	if (iter->current==NULL)
     		return NULL;
     
@@ -219,12 +234,14 @@ void *SLNextItem(SortedListIteratorPtr iter)
 		iter->current = iter->current->next;
 		tomp->next = NULL;
 		NodeDestroy(tomp);
+		printf("Leaving SLNextItem\n");
 		return temp;
 	} 
 
 	else
 	{
 		iter->current = iter->current->next; // Move to the next node
+		printf("Leaving SLNextItem\n");
 		return temp;
 	}
 

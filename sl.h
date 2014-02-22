@@ -10,11 +10,12 @@ struct Node
 };
 
 typedef struct Node Node;
+typedef Node* NodePtr;
+
 
 struct SortedList
 {
 	Node *head;
-	/*SortedListIteratorPtr;*/
 	int (*CompareFuncT) (void *, void *);
 };
 
@@ -25,12 +26,11 @@ struct SortedListIterator
 {
     Node *current;
 };
+typedef struct SortedListIterator SortedListIterator;
 typedef struct SortedListIterator* SortedListIteratorPtr;
 typedef int (*CompareFuncT)(void *, void *);
 
 /*----------------------------------------------------------------------*/
-
-typedef Node* NodePtr;
 
 NodePtr NodeCreate(void *newObj); // done
 void NodeDestroy(NodePtr myNode); // done

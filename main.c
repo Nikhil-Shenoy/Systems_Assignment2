@@ -31,62 +31,123 @@ int compareStrings(void *p1, void *p2)
 	return strcmp(s1, s2);
 }
 
-void printInts(SortedListPtr list)
+void printInts(SortedListIteratorPtr iter)
 {
-	Node *cur = list->head;
+	NodePtr location = iter->current;
 
-	while(cur != NULL)
+	while(iter->current != NULL)
 	{
-		void *temp = cur->data;
-		int toPrint = *((int*)temp);
-
-		printf("%u\n",toPrint);
-
-		cur = cur->next;
+		int temp = *((int*)SLNextItem(iter));
+		printf("%u\n",temp);
 	}
+
+	iter->current = location; // move iterator back to where it was 
 }
 
-void printDoubles(SortedListPtr list)
+void printDoubles(SortedListIteratorPtr iter)
 {
-	Node *cur = list->head;
+	NodePtr location = iter->current;
 
-	while(cur != NULL)
+	while(iter->current != NULL)
 	{
-		void *temp = cur->data;
-		double toPrint = *((double*)temp);
-
-		printf("%f\n",toPrint);
-
-		cur = cur->next;
+		double temp = *((double*)SLNextItem(iter));
+		printf("%f\n",temp);
 	}
+
+	iter->current = location; // move iterator back to where it was 
 }
 
-void printStrings(SortedListPtr list)
+void printStrings(SortedListIteratorPtr iter)
 {
-	Node *cur = list->head;
+	NodePtr location = iter->current;
 
-	while(cur != NULL)
+	while(iter->current != NULL)
 	{
-		char *temp = cur->data;
+		char *temp = SLNextItem(iter);
 		printf("%s\n",temp);
-
-		cur = cur->next;
 	}
+
+	iter->current = location; // move iterator back to where it was 
 }
 
 int main()
 {
-	SortedListPtr myList = SLCreate(&compareStrings);
+	int success;
+
+	SortedListPtr myList = SLCreate(compareInts); // create a list for integers
+	SortedListIteratorPtr myIter = SLCreateIterator(myList); // create an iterator that points to the head of the list
+
+	int a,b,c,d;
+	a = 1;
+	b = 2;
+	c = 3;
+	d = 4;
+
+	void *A = &a;
+	void *B = &b;
+	void *C = &c;
+	void *D = &d;
+
+	//Add elements to the list
+	success = SLInsert(myList,C);
+	success = SLInsert(myList,B);	
+	success = SLInsert(myList,C);
+	success = SLInsert(myList,D);	
+	success = SLInsert(myList,A);
+
+	printInts(myIter);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*	SortedListPtr myList = SLCreate(&compareStrings);
 
 	char *a = "b";
 	char *b = "f";
 	char *c = "d";
 	char *d = "z";
 
-/*	*a = "f";
+	*a = "f";
 	*b = "d";
 	*c = "b";
-*/	
+	
 	void *A = a;
 	void *B = b;
 	void *C = c;
@@ -114,39 +175,7 @@ int main()
 	timp = SLNextItem(iter);
 	printf("Next item is: %s\n",timp);
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	SLDestroy(myList);
+
+*/
 }
