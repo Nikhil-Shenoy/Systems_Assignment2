@@ -16,3 +16,12 @@ Expected Output:
 25 (For second Iterator)
 
 
+Input: A sorted list is created and three entries are added to the list. An iterator is created and is then pointed towards the next node in the list and then the one after (SLNextItem is called twice). SLRemove is called upon the value held by the node in the center of the list. Another, different iterator is created and is then pointed towards the next node in the list and then the one after (SLNextItem is called twice). Each value obtained by the SLNextItem method called in the program is printed. 
+
+The input values are "7", "25", "2"
+
+Expected Output: 
+25 (For first iterator)
+7(For first iterator)
+25 (For second Iterator)
+2 (For second Iterator)
