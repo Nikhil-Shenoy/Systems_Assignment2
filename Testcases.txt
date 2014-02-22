@@ -26,4 +26,31 @@ Expected Output:
 25 (For second Iterator)
 2 (For second Iterator)
 
+Input: "5" "3" "45" "4" "20" are inserted into a sorted list and then the sorted list is printed
+Expected Output:
+45
+20
+5
+4
+3
+
+Input: "z" "s" "x" are inserted into a sorted list and then the sorted list is printed
+Expected Output:
+z
+x
+s
+
+Input: ".44" ".5454" "1.2" ".501" are inserted into a sorted list and then the sorted list is printed
+Expected Output:
+1.2
+.5454
+.501
+.44
+
+Input: "z" "s" "z" "z" "x" are inserted into a sorted list and then the sorted list is printed
+Expected Output:
+z //No duplicates
+x
+s
+
 
