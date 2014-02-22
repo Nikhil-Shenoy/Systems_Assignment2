@@ -89,8 +89,38 @@ int main(){
 	SortedListPtr myList = SLCreate(compareInts); // create a list for integers
 	
     
-	SortedListIteratorPtr myIter = SLCreateIterator(myList);
-	int temp = *((int*)SLNextItem(myIter));	//No items in the list
+	int a,b,c,d;
+	a = 1;
+	b = 2;
+	c = 3;
 	
+    
+	void *A = &a;
+	void *B = &b;
+	void *C = &c;
+	
+    
+	//Add elements to the list
+	success = SLInsert(myList,C); // Nodes are created and added to the list
+	success = SLInsert(myList,B);
+	success = SLInsert(myList,A);
+    
+	SortedListIteratorPtr myIter = SLCreateIterator(myList);
+	int temp = *((int*)SLNextItem(myIter));	
 	printf("%d\n", temp);
+    
+    temp = *((int*)SLNextItem(myIter));	
+	printf("%d\n", temp);
+    
+    SlRemove(myList, B);
+    
+    SortedListIteratorPtr SecondIter = SLCreateIterator(myList);
+    
+    temp = *((int*)SLNextItem(SecodnIter));	//No items in the list
+	printf("%d\n", temp);
+    
+    temp = *((int*)SLNextItem(SecodnIter));	//No items in the list
+	printf("%d\n", temp);
+
+   
 }

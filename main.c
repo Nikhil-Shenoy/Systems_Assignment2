@@ -115,18 +115,16 @@ int main()
 	a = 1;
 	b = 2;
 	c = 3;
-	d = 4;
+	
 
 	void *A = &a;
 	void *B = &b;
 	void *C = &c;
-	void *D = &d;
+	
 
 	//Add elements to the list
 	success = SLInsert(myList,C); // Nodes are created and added to the list
 	success = SLInsert(myList,B);	
-	success = SLInsert(myList,C); // duplicates are not added to the list
-	success = SLInsert(myList,D);	
 	success = SLInsert(myList,A);
 
 	SortedListIteratorPtr myIter = SLCreateIterator(myList); // create an iterator that points to the head of the list
